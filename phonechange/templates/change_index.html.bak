@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/static/Css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="/static/Css/bootstrap-responsive.css" />
+        <link rel="stylesheet" type="text/css" href="/static/Css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/static/Css/ui-dialog.css" />
+
+        <script type="text/javascript" src="/static/Js/jquery.js"></script>
+        <script type="text/javascript" src="/static/Js/jquery.sorted.js"></script>
+        <script type="text/javascript" src="/static/Js/bootstrap.js"></script>
+        <script type="text/javascript" src="/static/Js/ckform.js"></script>
+        <script type="text/javascript" src="/static/Js/common.js"></script>
+		<script type="text/javascript" src="/static/Js/dialog-plus-min.js"></script>
+
+		<style>
+			#so {
+				margin: 50px 0 50px 0;
+			}
+
+        /* 表头单元格内容居中 */
+        .tr_value td {
+            text-align: center;
+        } 
+        </style>
+
+        <script>
+
+			function change_confirm() {
+				var res = confirm('确定要转手此条记录？');
+				if (res == true )
+					return true;
+				else
+					return false;
+			}
+        </script>
+    </head>
+    <body>
+		<div class="container-fluid">
+
+            <div class="controls so">
+                 <form class="form-search form-horizontal"  method="post" action="user_add">
+					<div id="so">
+					</div>
+                 </form>
+            </div>
+
+			<div>
+				<table border="1"  class="table text-info table-bordered table-striped table-hover table-condensed">
+					<thead>
+						<tr height="32px" class="tr_value"  style="background: #DFF0D8; font-size: 18px; ">
+							<td width="150px">IMEI\MEID</td>
+							<td>名称</td>
+							<td>品牌</td>
+							<td>型号</td>
+							<td>使用人</td>
+							<td width="200px">操作</td>
+						</tr>
+					</thead>
+					{% for i in a %}
+						<tr class='tr_value' height="32px" style="font-size:16px">
+							<form  method="post" action="phone_change_req/" style="display:inline-block; ">
+								<td>{{i.numbers}}</td>
+								<td><input name="id" type="hidden"  value={{i.id}} />{{i.mingcheng}}</td>
+								<!-- <td><input name="id" type="hidden" value={{i.id}} />{{i.mingcheng}}</td> -->
+								<td>{{i.pinpai}}</td>
+								<td>{{i.xinghao}}</td>
+								<td>{{i.curuser}}</td>
+								<td>
+									<select name="user" style="width:120px" >
+										{% for j in b %}
+											<option>{{j.username}}</option>
+										{% endfor %}
+									</select>
+									&nbsp; &nbsp;<input  class="btn btn-primary" type="submit" value="转手" onclick="return change_confirm()" /> 
+								</td>
+							</form>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+    </body>
+</html>
