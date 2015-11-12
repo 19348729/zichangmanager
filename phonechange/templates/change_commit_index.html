@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/static/Css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="/static/Css/bootstrap-responsive.css" />
+        <link rel="stylesheet" type="text/css" href="/static/Css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/static/Css/ui-dialog.css" />
+
+        <script type="text/javascript" src="/static/Js/jquery.js"></script>
+        <script type="text/javascript" src="/static/Js/jquery.sorted.js"></script>
+        <script type="text/javascript" src="/static/Js/bootstrap.js"></script>
+        <script type="text/javascript" src="/static/Js/ckform.js"></script>
+        <script type="text/javascript" src="/static/Js/common.js"></script>
+		<script type="text/javascript" src="/static/Js/dialog-plus-min.js"></script>
+
+		<style>
+		.so {
+			height: 70px;
+			padding-top:20px;
+			padding-bottom:10px;
+		}
+
+        /* 表头单元格内容居中 */
+        .tr_value td {
+            text-align: center;
+        } 
+        </style>
+
+        <script>
+            function edit_info(id) {
+				var dia = dialog({
+						title: '编辑项目信息',
+						url: 'http://192.168.234.139/xiangmu_edit?id=' + id,
+						width: '400px',
+						height: '200px'
+				});
+
+				dia.show();
+			}
+
+			function del_confirm() {
+				var res = confirm('确定要删除此条记录？');
+				if (res == true )
+					return true;
+				else
+					return false;
+			}
+        </script>
+    </head>
+    <body>
+		<div class="container-fluid">
+
+			<div text-align:center,margin:auto;>
+			<form class="form-search form-horizontal"  method="post" action="change_commit/">
+				<table border="1"  class="table text-info table-bordered table-striped table-hover table-condensed">
+					<thead>
+						<tr height="32px" class="tr_value"  style="background: #DFF0D8; font-size: 18px; ">
+							<td>IMEI\MEID</td>
+							<td>姓名</td>
+							<td>品牌</td>
+							<td>转移人</td>
+							<td width="132px">操作</td>
+						</tr>
+					</thead>
+					{% for i in a %}
+						<tr class='tr_value' height="32px" style="font-size:16px">
+							<td><input name="id" type="hidden" value={{i.id}} type="hidden" />{{i.numbers}}</td>
+							<td>{{i.other1}}</td>
+							<td>{{i.other2}}</td>
+							<td>{{i.olduser}}</td>
+                            <td>    &nbsp; &nbsp;<input  class="btn btn-primary" type="submit" value="确认接收" /> 
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</form>
+			</div>
+		</div>
+    </body>
+</html>
